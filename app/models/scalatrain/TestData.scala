@@ -1,20 +1,20 @@
 /*
- * Copyright © 2012 Typesafe, Inc. All rights reserved.
+ * Copyright  2012 Typesafe, Inc. All rights reserved.
  */
 
-package model
+package models.scalatrain
 
 object TestData {
 
-  val munich = Station("Munich")
+  val munich = new Station("Munich")
 
-  val nuremberg = Station("Nuremberg")
+  val nuremberg = new Station("Nuremberg")
 
-  val frankfurt = Station("Frankfurt")
+  val frankfurt = new Station("Frankfurt")
 
-  val cologne = Station("Cologne")
+  val cologne = new Station("Cologne")
 
-  val essen = Station("Essen")
+  val essen = new Station("Essen")
 
   val ice724MunichTime = Time(8, 50)
 
@@ -33,7 +33,7 @@ object TestData {
   val ice726CologneTime = Time(13, 2)
 
   val ice724 = Train(
-    TrainInfo.InterCityExpress(724),
+    TrainInfo.InterCityExpress(724, 55.13),
     Vector(
       ice724MunichTime -> munich,
       ice724NurembergTime -> nuremberg,
@@ -43,7 +43,7 @@ object TestData {
   )
 
   val ice726 = Train(
-    TrainInfo.InterCityExpress(726),
+    TrainInfo.InterCityExpress(726, 67.28),
     Vector(
       ice726MunichTime -> munich,
       ice726NurembergTime -> nuremberg,

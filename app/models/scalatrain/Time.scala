@@ -2,7 +2,7 @@
  * Copyright © 2012 Typesafe, Inc. All rights reserved.
  */
 
-package model
+package models.scalatrain
 
 import misc.{ JsonFormat, JsonSerializable }
 import scala.collection.immutable.Seq

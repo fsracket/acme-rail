@@ -1,0 +1,42 @@
+@(searchTripInfo : Application.SearchTripInfo, conns : Seq[models.scalatrain.Trip], fromWeather : Application.WeatherAt, toWeather : Application.WeatherAt)
+
+@main("Acme Railway") {
+
+
+
+@helper.form(action = routes.Application.doSearchTrip()) {
+<h3>Trips from Station: @(searchTripInfo.from) to station: @(searchTripInfo.to)</h3>
+
+<h4>Weather at @searchTripInfo.from.name: (@fromWeather.desc) Temperature: @fromWeather.temp </h4>
+<h4>Weather at @searchTripInfo.to.name: (@toWeather.desc) Temperature: @toWeather.temp </h4>
+
+
+<input type="hidden" name="fromStation" value="@searchTripInfo.from.name" />
+<input type="hidden" name="toStation" value="@searchTripInfo.to.name" />
+<input type="hidden" name="hour" value="@searchTripInfo.hour" />
+<input type="hidden" name="minute" value="@searchTripInfo.minute" />
+
+
+<label for="sort_options">Sort Options:</label>
+<select id="sort_options" name="sort_options">
+	<option value="0">None</option>
+	<option value="1">Total Time</option>
+	<option value="2">Total Price</option>
+</select>
+
+<input type="submit" />
+
+<ul>
+    @for(trip <- conns) {
+    	
+    <li>Trip time: @trip.Time, Trip Price: @trip.Price,
+    	 Trip route: @for(hop <- trip.hops) {@hop.to.name (Train: @hop.train.info.number), }</li>
+    }
+</ul>
+
+<div style="display:block; float:bottom; ">
+        <a href="@(routes.Application.searchTrip)">do new search</a>
+        </div>
+
+}
+}

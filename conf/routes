@@ -2,12 +2,23 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Home page
 GET     /                           controllers.Application.index
 GET     /stations                   controllers.Application.stations
-GET 	/trips/:station				controllers.Application.trips(station: String)
-GET 	/search    				    controllers.Application.searchLoad
-POST 	/search     				controllers.Application.search
-GET 	/searchResults			    controllers.Application.searchResults(from: String, to:String, hours: Int, minutes: Int)
+GET     /trips/:station             controllers.Application.trips(station:String)
+GET     /searchTrip                 controllers.Application.searchTrip
+GET		/searchHistory				controllers.Application.searchHistory
+
+
+GET		/doSearchTrip				controllers.Application.getSearchTrip(from:String, to:String, hour: Int, minute : Int, sortBy : Int)
+POST    /doSearchTrip               controllers.Application.doSearchTrip
+
+GET		/login						controllers.Application.login
+POST	/doLogin					controllers.Application.doLogin
+
+GET		/logout						controllers.Application.logout
+GET 	/hops						controllers.Application.hops
+GET		/api/v1/search				controllers.Application.apiSearch(from: String, to: String, time : Option[Int])
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

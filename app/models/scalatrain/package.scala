@@ -1,10 +1,8 @@
-/*
- * Copyright © 2012 Typesafe, Inc. All rights reserved.
- */
+package models
 
 import scala.annotation.tailrec
 
-package object model {
+package object scalatrain {
 
   @tailrec
   def isIncreasing[A: Ordering](times: Seq[A]): Boolean =

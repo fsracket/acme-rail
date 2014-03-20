@@ -1,0 +1,31 @@
+@(searchTripInfos : Seq[Application.SearchTripInfo])
+
+@main("Acme Railway") {
+
+
+
+
+
+
+
+<h3>Search History</h3>
+
+@if(searchTripInfos.length == 0) {
+	
+		<p> No History available :( </p>
+	} else {
+	<ul>
+	@for(searchTripInfo <- searchTripInfos) {
+		<li> 
+			<a href="@routes.Application.getSearchTrip(searchTripInfo.from.name, searchTripInfo.to.name,
+														searchTripInfo.hour, searchTripInfo.minute,
+														searchTripInfo.sortOption)"> From: @searchTripInfo.from.name, To: @searchTripInfo.to.name,
+						SortBy: @searchTripInfo.readableSortBy </a>
+		
+		</li>
+		}
+		</ul>
+
+	}
+}
+

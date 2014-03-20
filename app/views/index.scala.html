@@ -1,2 +1,40 @@
-@main("Welcome") {
+@(message: String, isAdmin : Boolean)
+
+@main("Welcome to Play") {
+
+   <h3> Welcome to the Acme's journey awesome journey planner for a small number of trains.</h3>
+
+
+    <h4>stuff you can do</h4>
+    <ul>
+    	<li>
+        <a href="@{routes.Application.stations}">List of Stations</a>
+		</li>
+		<li>
+            <a href="@{routes.Application.searchTrip}">Search for a trip</a>
+
+        </li>
+        <li>
+            <a href="@{routes.Application.searchHistory}">Search History</a>
+
+        </li>
+        @if(!isAdmin) {
+        <li>
+            <a href="@{routes.Application.login}">Login</a>
+
+        </li>
+        }
+        @if(isAdmin) {
+        	<li>
+            <a href="@{routes.Application.hops}">View the hops</a>
+
+        </li>
+        <li>
+            <a href="@{routes.Application.logout}">Logout (too lazy to hide if not logged in)</a>
+
+        </li>
+        }
+    </ul>
+        
+
 }

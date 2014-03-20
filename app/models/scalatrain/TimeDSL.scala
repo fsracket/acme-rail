@@ -2,9 +2,11 @@
  * Copyright © 2012 Typesafe, Inc. All rights reserved.
  */
 
-package model
+package models.scalatrain
 
 object TimeDSL {
+  
+  import scala.language.implicitConversions
 
   private val TimePattern = """(\d{1,2}):(\d{1,2})""".r
 

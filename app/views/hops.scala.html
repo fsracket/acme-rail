@@ -1,0 +1,15 @@
+@(hops : Seq[models.scalatrain.Hop])
+@main("Acme Railway") {
+
+
+
+
+<h3>All ze hops</h3>
+
+<ul>
+	@for(hop <- hops) {
+		<li>Train: @hop.train.info.number, From: @hop.from.name  To: @hop.to.name
+		}
+</ul>
+
+}

@@ -1,0 +1,19 @@
+@(form : Form[Application.LoginInfo], message : String)
+
+@main("Welcome to Play") {
+
+   <h3> Admin login</h3>
+
+	@if(message != "") {
+			<p style="color : red"> @message </p>
+		}
+
+    @helper.form(action = routes.Application.doLogin()) {
+    	@helper.inputText(form("userName"), '_label -> "User Name:")
+  		@helper.inputPassword(form("password"), '_label -> "Password:")
+   
+    	<input type="submit" />
+}
+        
+
+}

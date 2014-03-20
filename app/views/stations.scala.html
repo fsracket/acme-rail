@@ -1,9 +1,14 @@
-@(stations: Traversable[model.Station])
 
-@main("Stations") {
-    <ul>
-        @for(station <- stations) {
-            <li>@station.name <a href="@routes.Application.trips(station.name)">see trips</a></li>
-        }
-    </ul>
+@(stations: Set[models.scalatrain.Station])
+
+@main("Acme Railway") {
+
+
+        <h3>Stations</h3>
+<ul>
+    @for(s <- stations) {
+    <li><a href="@routes.Application.trips(s.name)">@s.name</a></li>
+    }
+</ul>
+
 }

@@ -1,16 +1,13 @@
-@(station: String, hopsOption: Option[Traversable[model.Hop]])
+@(orig : models.scalatrain.Station, hops: Set[models.scalatrain.Hop])
 
-@main("Trips leaving " + station) {
-    @hopsOption match {
-    	case Some(hops) => {
-			<ul>
-       	        @for(hop <- hops) {
-		            <li>to @hop.to.name at @hop.departureTime arriving @hop.arrivalTime</li>
-		        }
-		    </ul>
-	   	} 
-       	case None => {
-     	    <p>No trips leaving this station.</p>
-	   	} 
-   	} 
+@main("Acme Railway") {
+
+
+<h3>Trips for Station: @(orig.name)</h3>
+<ul>
+    @for(h <- hops) {
+    <li>@h.to, dep time: @h.departureTime, train: @h.train.info.number</li>
+    }
+</ul>
+
 }

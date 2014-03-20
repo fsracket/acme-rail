@@ -1,0 +1,44 @@
+@(stations : List[(String,String)], form : Form[Application.SearchTripInfo])
+
+@main("Acme Railway") {
+
+
+@if(form.hasGlobalErrors) {
+<ul>
+    @form.globalErrors.map { error =>
+    <li>@error.message</li>
+    }
+</ul>
+}
+
+<h3>Search for available Trips:</h3>
+
+@helper.form(action = routes.Application.doSearchTrip()) {
+
+<div style="display: block">
+    <!--<div id="from_select" style="float: left; height : 200px; width: 300px">-->
+
+        @helper.select(field = form("fromStation"), options = stations, '_label -> "From Station:")
+
+    @helper.select(field = form("toStation"), options = stations, '_label -> "To Station:")
+    @helper.inputText(form("hour"), '_label -> "Departure Hour:")
+    @helper.inputText(form("minute"), '_label -> "Departure Minute:")
+
+    <input type="submit"/>
+    <!--</div>-->
+
+    <!--<div id="to_select" style="float : left">-->
+
+
+    <!--</div>-->
+
+</div>
+
+
+
+}
+
+
+
+
+}

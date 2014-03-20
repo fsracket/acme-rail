@@ -1,8 +1,8 @@
 /*
- * Copyright © 2012 Typesafe, Inc. All rights reserved.
+ * Copyright 2012 Typesafe, Inc. All rights reserved.
  */
 
-package model
+package models.scalatrain
 
 import scala.collection.breakOut
 import scala.collection.immutable.Seq
@@ -24,16 +24,17 @@ case class Train(info: TrainInfo, schedule: Seq[(Time, Station)]) {
 
 object TrainInfo {
 
-  case class InterCityExpress(number: Int, hasWifi: Boolean = false) extends TrainInfo
+  case class InterCityExpress(number: Int, price: Double, hasWifi: Boolean = false) extends TrainInfo
 
-  case class RegionalExpress(number: Int) extends TrainInfo
+  case class RegionalExpress(number: Int, price: Double) extends TrainInfo
 
-  case class BavarianRegional(number: Int) extends TrainInfo
+  case class BavarianRegional(number: Int,  price: Double) extends TrainInfo
 }
 
 sealed abstract class TrainInfo {
 
   def number: Int
+  def price: Double
 }
 
 case class Station(name: String) extends AnyVal

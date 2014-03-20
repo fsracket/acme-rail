@@ -1,20 +1,16 @@
 /*
- * Copyright © 2012 Typesafe, Inc. All rights reserved.
+ * Copyright  2012 Typesafe, Inc. All rights reserved.
  */
 
-package model
+package models.scalatrain
 
+//import scala.collection.immutable.Seq
 
 class JourneyPlanner(trains: Set[Train]) {
 
   val stations: Set[Station] =
     // Could also be expressed in short notation: trains flatMap (_.stations)
     trains flatMap (train => train.stations)
-
-  val sortedStations: Seq[(String,String)] = {
-    val tmp =stations.map(s => s.name).toSeq.sorted
-    tmp zip tmp
-  }
 
   val hops: Map[Station, Set[Hop]] = {
     val hops = for {
@@ -23,7 +19,8 @@ class JourneyPlanner(trains: Set[Train]) {
     } yield Hop(from, to, train)
     hops groupBy (_.from)
   }
-
+  
+  
   def trainsAt(station: Station): Set[Train] =
     // Could also be expressed in short notation: trains filter (_.stations contains station)
     trains filter (train => train.stations contains station)
@@ -43,11 +40,12 @@ class JourneyPlanner(trains: Set[Train]) {
       }
     )
 
-  def connections(from: Station, to: Station, departureTime: Option[Time]): Set[Seq[Hop]] = {
+  def connections(from: Station, to: Station, departureTime: Time): Set[Trip] = {
     require(from != to, "from and to must not be equal!")
-    def connections(soFar: Vector[Hop]): Set[Vector[Hop]] = {
+    
+    def connections(soFar: Vector[Hop]): Set[Trip] = {
       if (soFar.last.to == to)
-        Set(soFar)
+        Set(Trip(soFar))
       else {
         val soFarStations = soFar.head.from +: (soFar map (_.to))
         val nextHops = hops.getOrElse(soFar.last.to, Set()) filter (hop =>
@@ -56,9 +54,17 @@ class JourneyPlanner(trains: Set[Train]) {
         nextHops flatMap (hop => connections(soFar :+ hop))
       }
     }
-    val nextHops = hops.getOrElse(from, Set()) filter (_.departureTime >= departureTime.getOrElse(Time(0,0)))
+    
+    val nextHops = hops.getOrElse(from, Set()) filter (_.departureTime >= departureTime)
     nextHops flatMap (hop => connections(Vector(hop)))
   }
+}
+
+case class Trip(hops: Seq[Hop]) {
+  
+  val Time = hops.last.arrivalTime - hops.head.departureTime
+  val Price = hops.map(h => h.train.info.price).sum 
+  
 }
 
 case class Hop(from: Station, to: Station, train: Train) {

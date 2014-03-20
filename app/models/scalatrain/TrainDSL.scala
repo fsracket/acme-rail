@@ -1,10 +1,11 @@
 /*
- * Copyright © 2012 Typesafe, Inc. All rights reserved.
+ * Copyright  2012 Typesafe, Inc. All rights reserved.
  */
 
-package model
+package models.scalatrain
 
 import scala.collection.immutable.Seq
+import scala.language.implicitConversions
 
 // We cannot use structural types until https://issues.scala-lang.org/browse/SI-6336 is closes
 object TrainDSL {
